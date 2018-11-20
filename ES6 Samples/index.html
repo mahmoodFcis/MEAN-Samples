@@ -1,0 +1,201 @@
+<html>
+    <head></head>
+    <body>
+        <!-- <script src="index.js"></script> -->
+        <script>
+           const pi=3;
+           // pi=6;  // trying to modify a constant variable.. error
+          // console.log(pi);
+
+          doSomething();
+           function doSomething()
+           {
+               var x=20;
+               if(x===20)
+               {
+                   let y=x;
+               }
+
+              // console.log(y);
+           }
+            // property shorthand
+// normal object literal definition 
+            var student={
+
+                name:"Ahmed",age:20
+            };
+
+// using property shorthand feature
+    var name = "mahmoud", age = 20;
+    var student2 = { name, age, walk(){console.log('walking')} };
+    //console.log(student2.name);
+
+    // computed property names
+    var person={["age"]:"20"};
+
+    console.log(person.age);
+
+    // Object.assign sample
+
+    var obj1={name:"Ahmed",age:20};
+    var obj2={getAge(){console.log('this is get age function')}};
+    var combinedObject=Object.assign(obj1,obj2);
+
+    console.log(combinedObject);
+
+
+    /// Arrow functions
+var printMsg=(param1,param2)=>{
+
+    console.log(param1+param2);
+
+}
+
+printMsg(2,4);
+
+// sample in array variable
+
+var myArray=[4,7,8,9];
+
+var newArray=myArray.map((v)=>{
+
+    return v+5;
+});
+
+console.log(newArray);
+
+// default function parameter values
+
+function myFunctionZ(log="a new log created",error="an error is thrown")
+{
+    console.log(log);
+    console.log(error);
+}
+
+myFunctionZ("this is not new log");
+
+// Rest parameter
+
+function sampleZ(num1,num2,...y)
+{
+    console.log(y.length);
+    console.log(y[0]);
+
+    return num1+num2+y[0];
+
+}
+
+console.log(sampleZ(1,5,6,7));
+
+var myArguments=[2,"string"];
+
+//export function displayConcatenting(a,b)
+function displayConcatenting(a,b)
+{
+    console.log(a+b);
+}
+
+displayConcatenting(...myArguments);
+
+//export var name="Mahmoud";
+var name="Mahmoud";
+var welcomeMessage=`Hi ${name}, a new notifcation has been received`;
+console.log(welcomeMessage); 
+
+var [zero,,,,,itemTwo]=[1,2,6,7];
+
+console.log(zero);
+console.log(itemTwo);
+
+///
+
+function myObject(name)
+{
+
+    this.Name=name;
+    var _this=this;
+    var printName=function(){
+
+        console.log(_this.Name);
+    }
+
+    var printName2=()=>{
+        console.log(this.Name);
+    };
+
+
+}
+
+console.time("mytimer");
+
+function testTimer()
+{
+    for(let i=0;i<1000000;i++)
+    {
+        // do nothing
+    }
+}
+
+console.timeEnd("mytimer");
+var arr=[{name:"Ahmed",age:30},{name:"Ahmed",age:30},{name:"Ahmed",age:30},{name:"Ahmed",age:50}];
+console.table(arr);
+//  attaching a debugger using "debugger";
+//debugger;
+// class exmaple
+class Student{
+
+
+constructor(name,age)
+{
+    this.Name=name;
+    this.Age=age;
+    this.Courses=[];
+}
+
+getName()
+{
+    return this.Name;
+}
+subscribeInCourse(courseName)
+{
+   this.Courses.push(courseName);
+   console.log(this.Courses);
+}
+
+
+static showId()
+{
+    console.log("my id");
+}
+}
+
+
+class InheritedObect extends Student
+{
+constructor()
+{
+    
+    super("Inherited",46);
+    this._gender="male";
+}
+
+get Gender(){
+    return this._gender;
+}
+set Gender(gender){
+    return this._gender=gender;
+}
+/// su
+}
+
+var obj3=new InheritedObect();
+console.log(obj3.Gender);
+var studentAhmed=new Student("Ahmed",35);
+studentAhmed.subscribeInCourse("Mat");
+Student.showId();
+
+
+
+</script>
+    </body>
+</html>
