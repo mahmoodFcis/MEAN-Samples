@@ -1,0 +1,18 @@
+{
+  "name": "node-babel",
+  "version": "1.0.0",
+  "description": "this is a demo sample for using Babel as transpiler to node app",
+  "main": "index.js",
+  "scripts": {
+    "webpack": "webpack"
+  },
+  "author": "Mahmoud",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-es2015": "^6.24.1",
+    "webpack": "^4.26.1",
+    "webpack-cli": "^3.1.2"
+  }
+}
