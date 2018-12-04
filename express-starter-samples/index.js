@@ -1,21 +1,15 @@
-var express=require("express");
+const express=require("express");
+const config=require("config");
+const indexDebugger=require("debug")("index");
+const expressDebugger=require("debug")("myExpress");
 var app=express();
-const productsRouter=require("./routes/products");
 app.use(express.json());
-app.get("",(req,res)=>{
+require("./config/routeConfig")(app);
+indexDebugger(process.env);
+var server=app.listen(process.env.PORT|| config.get("PORT")|| 3000,()=>{expressDebugger(`is listening to port ${config.get("PORT")} `)});
+module.exports=server;
+indexDebugger(process.env.PORT);
 
+indexDebugger(app.get("env"));
 
-    res.send("this is a response from node server");
-})
-
-app.get("/users/:userId",(req,res)=>{
-
-    res.send(req.params.userId);
-})
-
-app.get("/api/clinics",(req,res)=>{
-res.send(req.headers);
-
-})
-app.use("/api/products",productsRouter)
-app.listen(3000,()=>{console.log("is listening to port 4444")});
+indexDebugger(config.get("PORT"));
