@@ -6,11 +6,11 @@ var users = [{
     fullName: "Ahmed Saad",
     age: 30
 }, {
-    userName: "Ahmed",
+    userName: "Saleh",
     fullName: "Ahmed Hanafey",
     age: 56
 }, {
-    userName: "Ahmed",
+    userName: "Ali",
     fullName: "Ahmed Saad",
     age: 39
 }]
@@ -22,9 +22,7 @@ router.get("/", (req, res) => {
 router.get("/:userName", (req, res) => {
     var _userName = req.params.userName;
     if (_userName) {
-        var user = users.find({
-            userName:_userName
-        });
+        var user = users.find(e=>{return e.userName.toLowerCase()===_userName.toLowerCase()});
         res.send(user);
     } else res.status(404).send("user does not exist");
 });
