@@ -1,0 +1,3 @@
+{
+    "databaseURL":"mongodb://localhost/meanDatabase","PORT":3000
+}
