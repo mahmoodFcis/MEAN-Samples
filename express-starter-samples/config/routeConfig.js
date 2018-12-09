@@ -1,5 +1,5 @@
 module.exports=function(app){
-
+const myMiddleware=require("../middleware/myMiddlware");
 const userRoute=require("../routes/user");
 const productsRoute=require("../routes/products");
 
