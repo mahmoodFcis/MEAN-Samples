@@ -20,7 +20,11 @@ router.get("/", async (req, res) => {
     //lte
 
     // sample condition and filtering {age:{$eq:40,$lt:70}}).or([{userName:""},{password:"123456"}]
-    var users = await UserModel.User.find().limit(5).sort({
+    //pagingation using skip, limit functions
+    // await UserModel.User.find({userName:/.*mahmo.*/}).skip((pagenumber-1)*pagesize).limit(pageSize).
+    var users = await UserModel.User.find({
+        userName: /.*mahmo.*/
+    }).limit(5).sort({
         userName: 1,
         password: 1
     }) //to select specific columns .select({userName:1});
@@ -36,7 +40,7 @@ router.get("/:userName", async (req, res) => {
     } else res.status(404).send("user does not exist");
 });
 
-router.post("/", myMiddleWare, async (req, res) => {
+router.post("/", async (req, res) => {
 
     var schema = {
         "userName": joi.string().min(4).max(20).required(),
@@ -50,30 +54,41 @@ router.post("/", myMiddleWare, async (req, res) => {
                 userName,
                 password
             } = user;
-            var validationResult = joi.validate({
-                userName: userName,
-                password: password
-            }, schema);
+            var validationResult = {};
+            // joi.validate({
+            //     userName: userName,
+            //     password: password
+            // }, schema);
             if (validationResult.error) {
                 res.status(400).send("invalid data, please check your data again");
 
 
             } else {
-                var _user = await User.findOne({
+                var _user = await UserModel.User.findOne({
                     userName: user.userName
                 });
                 if (_user) {
                     res.status(400).send("User with this user name already exists");
                 }
+                try {
+                    let newUser = new UserModel.User({
+                        userName: user.userName,
+                        password: user.password,
+                        roles: user.roles,
+                        gender: user.gender,
+                        age:user.age,
+                        creationDate:user.creationDate,
+                        email:user.email
+                    });
+                    let result = await newUser.save();
+                    res.send(result);
+                } catch (e) {
+                    for(field in e.errors)
+                    {
+                        console.error(e.errors[field].message);
+                    }
+                }
 
-                let newUser = new User({
-                    userName: user.userName,
-                    password: user.password,
-                    roles: user.roles,
-                    gender: user.gender
-                });
-                let result = await newUser.save();
-                res.send(result);
             }
 
         } catch (e) {
@@ -92,12 +107,25 @@ router.put("/:userName", async (req, res) => {
 
     var userName = req.params.userName;
     if (userName) {
+        // updating using update() function without getting or fetching records from the database
+        // UserModel.User.update({userName:userName},{
+        //     $set{
+        //         age:req.body.age
+        //     }
+
+        // })
         let user = await UserModel.getByUserName(userName);
+        //update direct without findAndUpdate
+        // user.age=req.body.age;
+        // user.roles=req.body.roles;
+        // user.save();
 
         if (user) {
             await UserModel.User.findByIdAndUpdate(user._id, {
                 age: req.body.age,
                 roles: req.body.roles
+            }, {
+                new: true
             }, function (err, result) {
 
                 if (err)
@@ -112,7 +140,7 @@ router.put("/:userName", async (req, res) => {
     }
 
 })
-router.delete("/:userName",async (req, res) => {
+router.delete("/:userName", async (req, res) => {
 
     var userName = req.params.userName;
     if (userName) {
