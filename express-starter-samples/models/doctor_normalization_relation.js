@@ -104,7 +104,7 @@ async function updateDoctorInfo(doctorId, clinicId, name, address) {
 }
 
 async function getDcotors() {
-    var doctors = await Doctor.find().populate("clinic","name");
+    var doctors = await Doctor.find().populate("clinicId","name");
 
     console.log(doctors);
 }

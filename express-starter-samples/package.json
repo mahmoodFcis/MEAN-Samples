@@ -12,10 +12,13 @@
   "author": "Mahmoud",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "config": "^3.0.0",
     "debug": "^4.1.0",
     "express": "^4.16.4",
+    "fawn": "^2.1.5",
     "joi": "^14.3.0",
+    "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.3.15"
   }
 }

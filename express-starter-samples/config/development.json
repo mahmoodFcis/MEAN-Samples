@@ -1,3 +1,4 @@
 {
-    "databaseURL":"mongodb://localhost/meanDatabase","PORT":3000
+    "databaseURL":"mongodb://localhost/meanDatabase","PORT":3000,
+    "JWT_PrivateKey":"Mongo_2X@223_20"
 }
