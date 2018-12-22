@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+
 var userSchema = new mongoose.Schema({
 
     userName: {
@@ -91,6 +92,10 @@ userSchema.methods.generateAuthToken = function () {
     }
 
 }
+userSchema.methods. encryptPassword=async function() {
+    let saltKey = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, saltKey);
+}
 var User = mongoose.model("User", userSchema);
 
 var getByUserName = async function (_userName) {
@@ -99,7 +104,12 @@ var getByUserName = async function (_userName) {
     });
     return user;
 }
-
+var list = async function (pageSize=10) {
+    var users = await User.find({
+       
+    }).limit(pageSize);
+    return users;
+}
 
 
 /// adding schema for user roles
@@ -121,4 +131,5 @@ const UserRole = mongoose.model("UserRoles", new mongoose.Schema({
 
 module.exports.User = User;
 module.exports.getByUserName = getByUserName;
+module.exports.listUsers=list;
 module.exports.UserRole = UserRole;
