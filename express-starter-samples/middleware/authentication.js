@@ -2,7 +2,7 @@ const jwt=require("jsonwebtoken");
 const config=require("config");
 module.exports=function(req,res,next)
 {
-    if(req.url=="" && req.user.role)
+    
     if(req.header("X-Auth-Token"))
     {
         var token=req.header("X-Auth-Token");

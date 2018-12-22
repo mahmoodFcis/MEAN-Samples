@@ -103,8 +103,6 @@ router.post("/", async (req, res) => {
                 }
                 try {
 
-                    fawn.init(config.get("databaseURL"));
-                    let task=fawn.Task();
                     let saltKey=await bcrypt.genSalt(10);
                     let encryptedPassword=await bcrypt.hash(user.password,saltKey);
 
@@ -119,21 +117,26 @@ router.post("/", async (req, res) => {
                         role:user.role
                     });
                     var userRole=new UserModel.UserRole({userId:newUser._id,role:user.role});
-                    task.save("users", newUser);
-                    task.save("userroles",userRole);
-                   // task.remove("UserRoles",{_id:"1222"});
-                    // task.update("Users",{_id:"2222"},{
-                    //     $set:{
-                    //     password:"",email:""
-                    // }});
-                    task.run().then(function(result){
-                        console.log("transaction of adding user and user role completed successfully")
-                        res.send(result);
-                        
-                    }).catch(e=>{console.log("transaction rolled back with error "+e);
-
-                    res.status(500).send(e)});
                     
+                //     fawn.init(config.get("databaseURL"));
+                //     let task=fawn.Task();
+                    
+                //     task.save("users", newUser);
+                //     task.save("userroles",userRole);
+                //    // task.remove("UserRoles",{_id:"1222"});
+                //     // task.update("Users",{_id:"2222"},{
+                //     //     $set:{
+                //     //     password:"",email:""
+                //     // }});
+                //     task.run().then(function(result){
+                //         console.log("transaction of adding user and user role completed successfully")
+                //         res.send(result);
+                        
+                //     }).catch(e=>{console.log("transaction rolled back with error "+e);
+
+                    // res.status(500).send(e)});
+                    await newUser.save();
+                    res.send(newUser);
                    
                 } catch (e) {
                     console.log(e);
@@ -141,6 +144,8 @@ router.post("/", async (req, res) => {
                     {
                         console.error(e.errors[field].message);
                     }
+
+                    res.status(500).send(e);
                 }
 
             }
@@ -157,7 +162,7 @@ router.post("/", async (req, res) => {
 
 });
 
-router.put("/:userName",authorization(["admin"]), async (req, res) => {
+router.put("/:userName",authentication,authorization(["admin"]), async (req, res) => {
 
     var userName = req.params.userName;
     if (userName) {
@@ -177,8 +182,7 @@ router.put("/:userName",authorization(["admin"]), async (req, res) => {
         if (user) {
             await UserModel.User.findByIdAndUpdate(user._id, {
                 age: req.body.age,
-                roles: req.body.roles,
-                role:req.user.role
+                roles: req.body.roles
             }, {
                 new: true
             }, function (err, result) {
