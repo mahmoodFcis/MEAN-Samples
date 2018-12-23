@@ -1,0 +1,7 @@
+{"message":"an error occurred","level":"error"}
+{"message":"an error occurred","level":"error"}
+{"message":"this is a logging from winston","level":"info"}
+{"message":"an error occurred","level":"error"}
+{"message":"an error occurred","level":"error"}
+{"message":"an error occurred","level":"error"}
+{"message":"an error occurred","level":"error"}
