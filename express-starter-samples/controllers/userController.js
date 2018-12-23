@@ -22,7 +22,7 @@ module.exports = {
             "password": joi.string().required()
         };
         var user = req.body;
-
+       console.log(req.body);
         if (user) {
             try {
                 let {
@@ -43,7 +43,7 @@ module.exports = {
                     if (_user) {
                         res.status(400).send("User with this user name already exists");
                     }
-                    try {
+                    
 
                         
 
@@ -61,22 +61,19 @@ module.exports = {
                         
 
                         await newUser.save();
+
+                        throw new Error("Saving a user failed");
+
                         res.send(newUser);
 
-                    } catch (e) {
-                        console.log(e);
-                        for (field in e.errors) {
-                            console.error(e.errors[field].message);
-                        }
-
-                        res.status(500).send(e);
-                    }
+                 
 
                 }
 
             } catch (e) {
                 console.log(e);
-                res.status(400).send("invalid user data");
+                throw new Error(e);
+                
             }
 
         } else {
@@ -89,9 +86,12 @@ module.exports = {
 
         var userName = req.params.userName;
         if (userName) {
-          
+         
             let user = await getByUserName(userName);
             if (user) {
+                try
+
+                {
                 await User.findByIdAndUpdate(user._id, {
                     age: req.body.age,
                     roles: req.body.roles
@@ -104,6 +104,12 @@ module.exports = {
                     else res.send(result);
     
                 })
+            }
+            catch(e)
+            {
+                console.error(e);
+               
+            }
     
             } else {
                 res.status(404).send("User does not exist");

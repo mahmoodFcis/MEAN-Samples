@@ -9,14 +9,28 @@ app.use(express.json());
 //app.use(myMiddleware);
 require("./config/routeConfig")(app);
 
+process.on("uncaughtException",function(e){
+
+    console.log("error handled globally on the process as a whole "+e);
+});
+
+process.on("unhandledRejection",function(e){
+
+    console.log("error handled globally on the process as a whole "+e);
+})
+
+
 
 /// initialize connection to the database
 
 mongoose.connect(config.get("databaseURL"))
     .then(() => {
         indexDebugger("connected to mongodb");
-    })
-    .catch(e => indexDebugger("an error occurred during connection to mongo", e));
+    });
+    //.catch(e => indexDebugger("an error occurred during connection to mongo", e));
+
+
+    throw new Error("An exception is throw at the index");
 
 // here we log the env object of the process using Debug npm package
 indexDebugger(process.env);
