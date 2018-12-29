@@ -23,14 +23,13 @@ module.exports={registerBooking : async function(booking) {
         var doctor = await Doctor.findOne({
             _id: booking.doctorId
         });
-        console.log("balance:" +doctor.balance);
-        console.log("booking amount:",booking.bookingAmount);
+        
         if (doctor.balance >= booking.bookingAmount) {
             booking.save();
             return "Booking completed successfully";
 
         } else {
-            console.log("less than amount");
+            
            throw  new Error("Balance not enough for booking at this clinic");
     }
 },
