@@ -17,14 +17,13 @@ module.exports = {
     },
     save: async (req, res) => {
 
-        var schema = {
-            "userName": joi.string().min(4).max(20).required(),
-            "password": joi.string().required()
-        };
         var user = req.body;
-       console.log(req.body);
-        if (user) {
+        if (user.userName && user!={}) {
             try {
+                var schema = {
+                    "userName": joi.string().min(4).max(20).required(),
+                    "password": joi.string().required()
+                };
                 let {
                     userName,
                     password
@@ -35,7 +34,7 @@ module.exports = {
                     password: password
                 }, schema);
                 if (validationResult.error) {
-                    res.status(400).send("invalid data, please check your data again");
+                    res.status(400).send({error:"invalid data, please check your data again"});
 
 
                 } else {
@@ -43,10 +42,7 @@ module.exports = {
                     if (_user) {
                         res.status(400).send("User with this user name already exists");
                     }
-                    
-
-                        
-
+                         
                         let newUser = new User({
                             userName: user.userName,
                             roles: user.roles,
@@ -61,9 +57,7 @@ module.exports = {
                         
 
                         await newUser.save();
-
-                        throw new Error("Saving a user failed");
-
+                       
                         res.send(newUser);
 
                  
@@ -77,7 +71,8 @@ module.exports = {
             }
 
         } else {
-            res.status(400).send("invalid/missing user data");
+            console.log("an empty object")
+            res.status(400).send({error:"invalid/missing user data"});
         }
 
 

@@ -106,8 +106,9 @@ var getByUserName = async function (_userName) {
 }
 var list = async function (pageSize=10) {
     var users = await User.find({
-       
+   
     }).limit(pageSize);
+    console.log(users);
     return users;
 }
 

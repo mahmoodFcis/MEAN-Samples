@@ -1,3 +1,8 @@
 {
-    "databaseURL":"192.168.2.3","PORT":2000
+    "databaseURL":"mongodb://localhost/meanTestDB",
+    "PORT":3000,
+    "JWT_PrivateKey":"Mongo_2X@223_20",
+    "logFilePath":"./logs/log.txt",
+    "winstonPath":"./logs/winstonFile.txt",
+    "winstonDB":"mongodb://localhost/winstonDB"
 }
