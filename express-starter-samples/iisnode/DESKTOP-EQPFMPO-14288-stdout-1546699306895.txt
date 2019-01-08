@@ -1,0 +1,7 @@
+[ 'admin' ]
+{"message":"an error occurred","level":"error"}
+{"message":"this is a logging from winston","level":"info"}
+[1546699309572] INFO  (14288 on DESKTOP-EQPFMPO): this is from pino logging is listening to port 3000 
+[1546699309575] ERROR (14288 on DESKTOP-EQPFMPO): an error in pino example
+[]
+[]

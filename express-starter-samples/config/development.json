@@ -1,5 +1,5 @@
 {
-    "databaseURL":"mongodb://localhost/meanDatabase","PORT":3000,
+    "databaseURL":"mongodb://192.168.99.100:32769/meanDatabase","PORT":3000,
     "JWT_PrivateKey":"Mongo_2X@223_20",
     "logFilePath":"./logs/log.txt",
     "winstonPath":"./logs/winstonFile.txt",

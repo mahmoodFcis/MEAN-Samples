@@ -7,7 +7,7 @@ const authorization=require("../middleware/authorization");
 const errorHandler=require("../middleware/errorHandler");
 router.get("/", userController.list)
 router.get("/:userName", userController.findByName);
-router.post("/", authentication,errorHandler( userController.save));
+router.post("/",errorHandler( userController.save));
 router.put("/:userName",authentication,authorization(["admin"]), userController.update)
 router.delete("/:userName", userController.delete)
 module.exports = router;

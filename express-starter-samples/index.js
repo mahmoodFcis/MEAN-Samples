@@ -3,8 +3,12 @@ const config = require("config");
 const indexDebugger = require("debug")("index");
 const expressDebugger = require("debug")("myExpress");
 const myMiddleware = require("./middleware/myMiddlware");
+const compression=require("compression");
+const helmet=require("helmet");
 const mongoose = require("mongoose");
 var app = express();
+app.use(compression());
+app.use(helmet());
 app.use(express.json());
 //app.use(myMiddleware);
 require("./config/routeConfig")(app);
@@ -18,8 +22,6 @@ process.on("unhandledRejection",function(e){
 
     log.error("error handled globally on the process as a whole "+e);
 })
-
-
 
 /// initialize connection to the database
 
