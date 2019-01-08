@@ -1,3 +1,11 @@
 {
-    "databaseURL":"192.168.2.50","PORT":3001
+    "databaseURL":"mongodb://ds149744.mlab.com:49744/expresssamples",
+    "dbUserName":"dbUser2",
+    "dbPassword":"P@ssw0rd2020",
+    "PORT":3000,
+
+    "JWT_PrivateKey":"Mongo_2X@223_20",
+    "logFilePath":"./logs/log.txt",
+    "winstonPath":"./logs/winstonFile.txt",
+    "winstonDB":"mongodb://localhost/winstonDB"
 }

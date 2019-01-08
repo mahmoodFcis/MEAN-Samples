@@ -24,15 +24,15 @@ process.on("unhandledRejection",function(e){
 })
 
 /// initialize connection to the database
-
-mongoose.connect(config.get("databaseURL"))
+console.log(config.get("databaseURL"));
+mongoose.connect(config.get("databaseURL"),{auth:{user:config.get("dbUserName"),password:config.get("dbPassword")}})
     .then(() => {
         log.logToFile("connected to mongodb","info");
+        console.log("connected to mongodb")
     }).
     catch(e => log.error(e));
-
-    // this to test the global exception at uncaucht exception event emitter
-    //throw new Error("An exception is throw at the index");
+console.error(e);
+    
 
 // here we log the env object of the process using Debug npm package
 var server = app.listen(process.env.PORT || config.get("PORT") || 3000, () => {

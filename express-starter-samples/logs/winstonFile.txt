@@ -78,3 +78,12 @@
 {"message":"an error occurred","level":"error"}
 {"message":"an error occurred","level":"error"}
 {"message":"an error occurred","level":"error"}
+{"message":"an error occurred","level":"error"}
+{"message":"an error occurred","level":"error"}
+{"message":"an error occurred","level":"error"}
+{"message":"an error occurred","level":"error"}
+{"message":"an error occurred","level":"error"}
+{"message":"an error occurred","level":"error"}
+{"message":"an error occurred","level":"error"}
+{"message":"an error occurred","level":"error"}
+{"message":"an error occurred","level":"error"}
